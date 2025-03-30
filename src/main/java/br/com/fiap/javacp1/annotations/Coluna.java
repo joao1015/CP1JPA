@@ -1,4 +1,4 @@
-package annotations;
+package br.com.fiap.javacp1.annotations;
 
 import java.lang.annotation.*;
 

@@ -1,39 +1,79 @@
-package Model;
+package br.com.fiap.javacp1.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import com.seuprojeto.annotations.Tabela;
-import com.seuprojeto.annotations.Coluna;
+import jakarta.persistence.*;
 
 @Entity
-@Tabela(nome = "TAB_FUNCIONARIO")
-public class Funcionario {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name = "TIPO_FUNCIONARIO",  // Nome da coluna discriminadora
+        discriminatorType = DiscriminatorType.STRING,
+        columnDefinition = "VARCHAR2(20)"  // Tipo de dado no Oracle
+)
+@Table(name = "TAB_FUNCIONARIO")
+public abstract class Funcionario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Coluna(nome = "ID")
     private Long id;
 
-    @Coluna(nome = "NOME")
     private String nome;
-
-    @Coluna(nome = "HORAS_TRABALHADAS")
     private int horasTrabalhadas;
-
-    @Coluna(nome = "VALOR_POR_HORA")
     private double valorPorHora;
 
-    // Construtor, getters e setters (implementar)
+    @Enumerated(EnumType.STRING)
+    private TipoFuncionario tipoFuncionario;
 
-    public double calcularSalario() {
-        return horasTrabalhadas * valorPorHora;
+    public Funcionario() {}
+
+    public Funcionario(String nome, int horasTrabalhadas, double valorPorHora, TipoFuncionario tipoFuncionario) {
+        this.nome = nome;
+        this.horasTrabalhadas = horasTrabalhadas;
+        this.valorPorHora = valorPorHora;
+        this.tipoFuncionario = tipoFuncionario;
     }
+
+    // Getters e Setters
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getHorasTrabalhadas() {
+        return horasTrabalhadas;
+    }
+
+    public void setHorasTrabalhadas(int horasTrabalhadas) {
+        this.horasTrabalhadas = horasTrabalhadas;
+    }
+
+    public double getValorPorHora() {
+        return valorPorHora;
+    }
+
+    public void setValorPorHora(double valorPorHora) {
+        this.valorPorHora = valorPorHora;
+    }
+
+    public TipoFuncionario getTipoFuncionario() {
+        return tipoFuncionario;
+    }
+
+    public void setTipoFuncionario(TipoFuncionario tipoFuncionario) {
+        this.tipoFuncionario = tipoFuncionario;
+    }
+
+    public abstract double calcularSalario();
 
     public void imprimirInformacao() {
         System.out.println("Nome: " + nome);
         System.out.println("Horas Trabalhadas: " + horasTrabalhadas);
-        System.out.println("Valor por Hora: " + valorPorHora);
-        System.out.println("Salário Base: " + calcularSalario());
+        System.out.println("Valor por Hora: R$" + valorPorHora);
     }
 }

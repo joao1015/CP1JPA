@@ -1,16 +1,27 @@
-package Model;
+package br.com.fiap.javacp1.Model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("PLENO")  // Valor textual para a coluna TIPO_FUNCIONARIO
 public class Pleno extends Funcionario {
-    private static final double BONUS_PERCENTUAL = 0.10; // 10%
+
+    public Pleno() {}
+
+    public Pleno(String nome, int horasTrabalhadas, double valorPorHora) {
+        super(nome, horasTrabalhadas, valorPorHora, TipoFuncionario.PLENO);
+    }
 
     @Override
     public double calcularSalario() {
-        return super.calcularSalario() * (1 + BONUS_PERCENTUAL);
+        return getHorasTrabalhadas() * getValorPorHora();
     }
 
     @Override
     public void imprimirInformacao() {
         super.imprimirInformacao();
-        System.out.println("Cargo: Pleno | Bônus: 10%");
+        System.out.println("Cargo: Pleno");
+        System.out.println("Salário Total: R$" + calcularSalario());
     }
 }

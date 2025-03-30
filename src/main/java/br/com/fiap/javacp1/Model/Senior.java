@@ -1,17 +1,27 @@
-package Model;
+package br.com.fiap.javacp1.Model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("SENIOR")  // Valor textual para a coluna TIPO_FUNCIONARIO
 public class Senior extends Funcionario {
-    private static final double BONUS_POR_15H = 200.0;
+
+    public Senior() {}
+
+    public Senior(String nome, int horasTrabalhadas, double valorPorHora) {
+        super(nome, horasTrabalhadas, valorPorHora, TipoFuncionario.SENIOR);
+    }
 
     @Override
     public double calcularSalario() {
-        int ciclosBonus = horasTrabalhadas / 15;
-        return super.calcularSalario() + (ciclosBonus * BONUS_POR_15H);
+        return getHorasTrabalhadas() * getValorPorHora();
     }
 
     @Override
     public void imprimirInformacao() {
         super.imprimirInformacao();
-        System.out.println("Cargo: Sênior | Bônus: " + ((horasTrabalhadas / 15) * BONUS_POR_15H));
+        System.out.println("Cargo: Sênior");
+        System.out.println("Salário Total: R$" + calcularSalario());
     }
 }

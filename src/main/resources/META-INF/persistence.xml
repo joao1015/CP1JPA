@@ -1,22 +1,33 @@
-<persistence-unit name="FuncionarioPU" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+    https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
 
-    <!-- Suas classes de entidade -->
-    <class>br.com.fiap.javacp1.Model.Funcionario</class>
-    <class>br.com.fiap.javacp1.Model.Estagiario</class>
-    <!-- inclua todas as outras classes -->
+    <persistence-unit name="FuncionarioPU">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-    <properties>
-        <!-- Configuração para Oracle FIAP -->
-        <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
-        <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@Oracle.fiap.com.br:1521/orcl"/>
-        <property name="jakarta.persistence.jdbc.user" value="rm557808"/>
-        <property name="jakarta.persistence.jdbc.password" value="021093"/>
+        <!-- Lista de Entidades -->
+        <class>br.com.fiap.javacp1.Model.Funcionario</class>
+        <class>br.com.fiap.javacp1.Model.Estagiario</class>
+        <class>br.com.fiap.javacp1.Model.Junior</class>
+        <class>br.com.fiap.javacp1.Model.Pleno</class>
+        <class>br.com.fiap.javacp1.Model.Senior</class>
+        <class>br.com.fiap.javacp1.Model.Especialista</class>
 
-        <!-- Configurações do Hibernate -->
-        <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
-        <property name="hibernate.show_sql" value="true"/>
-        <property name="hibernate.format_sql" value="true"/>
-        <property name="hibernate.hbm2ddl.auto" value="update"/>
-    </properties>
-</persistence-unit>
+        <properties>
+            <!-- Configuração Oracle FIAP -->
+            <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@Oracle.fiap.com.br:1521/orcl"/>
+            <property name="jakarta.persistence.jdbc.user" value="rm557808"/>
+            <property name="jakarta.persistence.jdbc.password" value="021093"/>
+
+            <!-- Configurações Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>

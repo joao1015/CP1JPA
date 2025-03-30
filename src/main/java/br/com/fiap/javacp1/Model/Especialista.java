@@ -1,16 +1,27 @@
-package Model;
+package br.com.fiap.javacp1.Model;
 
-public class Especialista extends Senior {
-    private static final double BONUS_ESPECIALIDADE = 500.0;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("ESPECIALISTA")  // Valor textual para a coluna TIPO_FUNCIONARIO
+public class Especialista extends Funcionario {
+
+    public Especialista() {}
+
+    public Especialista(String nome, int horasTrabalhadas, double valorPorHora) {
+        super(nome, horasTrabalhadas, valorPorHora, TipoFuncionario.ESPECIALISTA);
+    }
 
     @Override
     public double calcularSalario() {
-        return super.calcularSalario() + BONUS_ESPECIALIDADE;
+        return getHorasTrabalhadas() * getValorPorHora();
     }
 
     @Override
     public void imprimirInformacao() {
         super.imprimirInformacao();
-        System.out.println("Bônus Especialidade: " + BONUS_ESPECIALIDADE);
+        System.out.println("Cargo: Especialista");
+        System.out.println("Salário Total: R$" + calcularSalario());
     }
 }
