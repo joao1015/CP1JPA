@@ -1,0 +1,22 @@
+<persistence-unit name="FuncionarioPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <!-- Suas classes de entidade -->
+    <class>br.com.fiap.javacp1.Model.Funcionario</class>
+    <class>br.com.fiap.javacp1.Model.Estagiario</class>
+    <!-- inclua todas as outras classes -->
+
+    <properties>
+        <!-- Configuração para Oracle FIAP -->
+        <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+        <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@Oracle.fiap.com.br:1521/orcl"/>
+        <property name="jakarta.persistence.jdbc.user" value="rm557808"/>
+        <property name="jakarta.persistence.jdbc.password" value="021093"/>
+
+        <!-- Configurações do Hibernate -->
+        <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+        <property name="hibernate.show_sql" value="true"/>
+        <property name="hibernate.format_sql" value="true"/>
+        <property name="hibernate.hbm2ddl.auto" value="update"/>
+    </properties>
+</persistence-unit>
